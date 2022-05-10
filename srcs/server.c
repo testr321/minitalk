@@ -12,10 +12,10 @@ void handleSigs(int sig)
 		bit = 0;
 	else
 		bit = 1;
-	c += bit << i;
 
+	c += (bit << i);
 	i++;
-	if (i >= 8)
+	if (i == 8)
 	{
 		if (c == '\0')
 			write(1, "\n", 1);
