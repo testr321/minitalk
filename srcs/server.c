@@ -30,7 +30,7 @@ int	main(void)
 	struct sigaction	sa;
 
 	ft_printf("SERVER PID: %d\n", getpid());
-	sa.sa_handler = handleSigs;
+	sa.sa_handler = &handle_sigs;
 	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
