@@ -31,6 +31,7 @@ int	main(int argc, char **argv)
 {
 	int		pid;
 	char	*str;
+	
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
