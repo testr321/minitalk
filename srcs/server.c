@@ -11,58 +11,31 @@ void handleSigs(int sig)
 	if (sig == SIGUSR1)
 		bit = 0;
 	else
-	{
 		bit = 1;
-		// ft_printf("1\n");
-	}
-	// ft_printf("%d\n", i);
 	c += bit << i;
 
 	i++;
 	if (i >= 8)
 	{
-		// ft_printf("reset i\n\n");
-		i = 0;
-		
 		if (c == '\0')
-			ft_printf("\n");
+			write(1, "\n", 1);
 		else
-			ft_printf("%c", c);
+			write(1, &c, 1);
 		c = 0;
+		i = 0;
 	}
 }
 
 int main()
 {
 	struct sigaction	sa;
-	
 
-	// ft_printf("SERVER PID: %d\n", getpid());
-	
-	// write(1, "Server PID : ", 13);
-	// ft_putnbr_fd((int) getpid(), 1);
-	// write(1, "\n", 1);
+	ft_printf("SERVER PID: %d\n", getpid());
+	sa.sa_handler = handleSigs;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	while (1)
+		pause();
 
-	// sa.sa_handler = handleSigs;
-	// sigaction(SIGUSR1, &sa, NULL);
-	// sigaction(SIGUSR2, &sa, NULL);
-	// sa.sa_handler = handleSigs;
-	// sigaction(SIGUSR1, &sa, NULL);
-	// sigaction(SIGUSR2, &sa, NULL);
-
-	// while (1)
-	// {
-	// 	pause();
-	// }
-
-	write(1, "Server PID : ", 13);
-		ft_putnbr_fd((int) getpid(), 1);
-		write(1, "\n", 1);
-		sa.sa_handler = handleSigs;
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
-		while (1)
-			pause();
-	
 	return (0);
 }
