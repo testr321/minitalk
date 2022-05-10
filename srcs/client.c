@@ -8,12 +8,12 @@ void sendChar(int pid, char c)
 	i = 0;
 	while (i < 8)
 	{
-		if ((c >> i) & 1)
+		if (c >> i & 1)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
 		i++;
-		usleep(200);
+		usleep(50);
 	}
 }
 
@@ -21,9 +21,9 @@ void sendStr(int pid, char *str)
 {
 	int i;
 
-	i = 0;
-	while (str[i])
-		sendChar(pid, str[i++]);
+	i = -1;
+	while (str[++i])
+		sendChar(pid, str[i]);
 	sendChar(pid, '\0');
 }
 
