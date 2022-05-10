@@ -2,47 +2,40 @@
 #include <signal.h>
 #include "../ft_printf/includes/ft_printf.h"
 
-static void	handleSigs(int sig, siginfo_t *info, void *data)
+void handleSigs(int sig)
 {
-	static int	i;
-	int			bit;
-	static int	c;
+	static int i;
+	static char c;
+	int	bit;
 
-	(void)data;
-	if (sig == SIGUSR2)
+	if (sig == SIGUSR1)
 		bit = 0;
 	else
 		bit = 1;
+
 	c += (bit << i);
-	i ++;
+	i++;
 	if (i == 8)
 	{
-		write(1, &c, 1);
 		if (c == '\0')
-		{
 			write(1, "\n", 1);
-			kill(info->si_pid, SIGUSR1);
-		}
-		i = 0;
+		else
+			write(1, &c, 1);
 		c = 0;
+		i = 0;
 	}
 }
 
-int	main(void)
+int main()
 {
-	pid_t				pid;
 	struct sigaction	sa;
 
-	sa.sa_sigaction = handleSigs;
-	sa.sa_flags = SA_SIGINFO;
-	pid = getpid();
-	ft_putstr_fd("Talk to me!\n", 1);
-	ft_putstr_fd("Server PID: ", 1);
-	ft_putnbr_fd(pid, 1);
-	ft_putchar_fd('\n', 1);
+	ft_printf("SERVER PID: %d\n", getpid());
+	sa.sa_handler = handleSigs;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
+
 	return (0);
 }
