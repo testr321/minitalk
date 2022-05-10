@@ -12,12 +12,12 @@ void sendChar(int pid, char c)
 		if ((c >> i++) & 1)
 		{
 			kill(pid, SIGUSR2);
-			ft_printf("send 1\n");
+			// ft_printf("send 1\n");
 		}
 		else
 		{
 			kill(pid, SIGUSR1);
-			ft_printf("send 0\n");
+			// ft_printf("send 0\n");
 			
 		}
 		usleep(100);
