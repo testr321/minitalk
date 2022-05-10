@@ -1,4 +1,4 @@
-SRCS = srcs/*.c libft/*.c
+SRCS = srcs/*.c
 
 OBJS = *.o
 
@@ -12,7 +12,7 @@ $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS) libft/*.o
 
 $(OBJS): $(SRCS)
-	make re -C libft	
+	make re -C libft
 	gcc $(CFLAGS) -c $<
 
 clean:
