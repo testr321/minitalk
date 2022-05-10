@@ -1,7 +1,7 @@
 #include <signal.h>
 #include "../ft_printf/includes/ft_printf.h"
 
-void sendChar(int pid, char c)
+void	send_char(int pid, char c)
 {
 	int	i;
 
@@ -17,26 +17,25 @@ void sendChar(int pid, char c)
 	}
 }
 
-void sendStr(int pid, char *str)
+void	send_str(int pid, char *str)
 {
-	int i;
+	int	i;
 
-	i = -1;
-	while (str[++i])
-		sendChar(pid, str[i]);
-	sendChar(pid, '\0');
+	i = 0;
+	while (str[i])
+		send_char(pid, str[i++]);
+	send_char(pid, '\0');
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
+	int		pid;
+	char	*str;
 	if (argc == 3)
 	{
-		int pid;
-		char *str;
-
 		pid = ft_atoi(argv[1]);
 		str = argv[2];
-		sendStr(pid, str);
+		send_str(pid, str);
 	}
 	return (0);
 }

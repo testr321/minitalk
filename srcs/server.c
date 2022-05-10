@@ -2,17 +2,16 @@
 #include <signal.h>
 #include "../ft_printf/includes/ft_printf.h"
 
-void handleSigs(int sig)
+void	handle_sigs(int sig)
 {
-	static int i;
-	static char c;
-	int	bit;
+	static int	i;
+	static char	c;
+	int			bit;
 
 	if (sig == SIGUSR1)
 		bit = 0;
 	else
 		bit = 1;
-
 	c += (bit << i);
 	i++;
 	if (i == 8)
@@ -26,7 +25,7 @@ void handleSigs(int sig)
 	}
 }
 
-int main()
+int	main(void)
 {
 	struct sigaction	sa;
 
@@ -37,6 +36,5 @@ int main()
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
-
 	return (0);
 }
