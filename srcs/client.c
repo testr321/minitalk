@@ -12,7 +12,7 @@ void sendChar(int pid, char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(69);
+		usleep(100);
 	}
 }
 
