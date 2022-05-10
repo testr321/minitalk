@@ -32,7 +32,7 @@ int main()
 
 	ft_printf("SERVER PID: %d\n", getpid());
 	sa.sa_handler = handleSigs;
-	sa.sa_flags = SA_SIGINFO;
+	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
